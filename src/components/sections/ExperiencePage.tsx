@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Gamepad2, RotateCcw, MapPin, Star, Clock, Navigation, ChevronRight, Quote, X, Check, Zap, Gauge, Battery, GaugeCircle, Timer, Wind, Hexagon, Layers, Zap as Bolt, Cpu, Wifi, Disc } from 'lucide-react';
+import { Gamepad2, MapPin, Star, Clock, Navigation, ChevronRight, Quote, X, Check, Zap, Gauge, Battery, GaugeCircle, Timer, Wind, Hexagon, Layers, Zap as Bolt, Cpu, Wifi, Disc } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PageNav from '../ui/PageNav';
 

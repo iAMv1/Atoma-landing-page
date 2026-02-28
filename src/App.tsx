@@ -1,17 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Canvas } from "@react-three/fiber";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Loader from "./components/Loader";
-import PremiumScene3D from "./components/PremiumScene3D";
 import CustomCursor from "./components/ui/CustomCursor";
-import Hero from "./components/sections/Hero";
-import ModelsPage from "./components/sections/ModelsPage";
-import TechnologyPage from "./components/sections/TechnologyPage";
-import ExperiencePage from "./components/sections/ExperiencePage";
-import ReservePage from "./components/sections/ReservePage";
 import { useImmersionStore } from "./stores/useImmersionStore";
 import type { PageName } from "./stores/useImmersionStore";
+
+// Lazy load 3D components for better performance
+const PremiumScene3D = lazy(() => import("./components/PremiumScene3D"));
+
+// Lazy load page sections
+const Hero = lazy(() => import("./components/sections/Hero"));
+const ModelsPage = lazy(() => import("./components/sections/ModelsPage"));
+const TechnologyPage = lazy(() => import("./components/sections/TechnologyPage"));
+const ExperiencePage = lazy(() => import("./components/sections/ExperiencePage"));
+const ReservePage = lazy(() => import("./components/sections/ReservePage"));
+
+// Lazy load Canvas (Three.js provider)
+const Canvas = lazy(() => import("@react-three/fiber").then(module => ({ default: module.Canvas })));
 
 /* ─── Cinematic Page Transition Overlay ─── */
 function PageTransitionOverlay() {
@@ -151,19 +157,21 @@ function App() {
           {/* Persistent 3D Canvas - only on Home, Models, Reserve */}
           {showCanvas && (
             <div className="absolute inset-0 z-0">
-              <Canvas
-                shadows
-                gl={{
-                  antialias: true,
-                  alpha: false,
-                  powerPreference: "high-performance"
-                }}
-                dpr={[1, 2]}
-                camera={{ position: [0, 2, 8], fov: 40 }}
-                style={{ background: '#050508' }}
-              >
-                <PremiumScene3D />
-              </Canvas>
+              <Suspense fallback={null}>
+                <Canvas
+                  shadows
+                  gl={{
+                    antialias: true,
+                    alpha: false,
+                    powerPreference: "high-performance"
+                  }}
+                  dpr={[1, 2]}
+                  camera={{ position: [0, 2, 8], fov: 40 }}
+                  style={{ background: '#050508' }}
+                >
+                  <PremiumScene3D />
+                </Canvas>
+              </Suspense>
             </div>
           )}
 
@@ -171,7 +179,9 @@ function App() {
           <PageTransitionOverlay />
 
           {/* Page Routes */}
-          <PageRoutes />
+          <Suspense fallback={null}>
+            <PageRoutes />
+          </Suspense>
         </main>
       )}
     </BrowserRouter>

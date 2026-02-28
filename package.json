@@ -13,7 +13,6 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@react-three/postprocessing": "^3.0.4",
-    "@studio-freight/react-lenis": "^0.0.47",
     "@types/three": "^0.183.1",
     "framer-motion": "^12.34.3",
     "gsap": "^3.14.2",
@@ -30,8 +29,8 @@
   "devDependencies": {
     "@eslint/js": "^9.13.0",
     "@types/node": "^22.8.1",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "npm:@types/react@beta",
+    "@types/react-dom": "npm:@types/react-dom@beta",
     "@vitejs/plugin-react": "^4.3.3",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.0",

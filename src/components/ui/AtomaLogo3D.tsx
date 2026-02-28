@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Float, Text3D, Center } from '@react-three/drei';
+import { Float } from '@react-three/drei';
 import * as THREE from 'three';
 
 export function AtomaLogo3D({ size = 1 }: { size?: number }) {
